@@ -3,10 +3,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
-
-
-
 public class App {
     Scanner sc;
 
@@ -67,15 +63,26 @@ public class App {
                 String[] paramsStr = commandList[1].split("=",2); //id=1 이란 문자열을 id 와 1로 2개로 나누었다
 
                 String value = paramsStr[1];
+
+
                 int idx = Integer.parseInt(paramsStr[1]);
+                Article article = null;
 
                 for (int i = 0; i < articleList.size(); i++){
-                    Article a = articleList.get(i);
-                    if (a.getId() == idx) {
-                        articleList.remove(a);
-                        System.out.printf("%d게시물이 삭제되었습니다\n", idx);
+                    if (articleList.get(i).getId() == idx) {
+                        article = articleList.get(i);
+
                     }
                 }
+                if( article == null){
+                    System.out.printf("%d게시물은 존재하지 않습니다\n", idx);
+                } else {
+                    articleList.remove(article);
+                    System.out.printf("%d게시물이 삭제되었습니다\n", idx);
+                }
+
+
+
             }
         }
     }
