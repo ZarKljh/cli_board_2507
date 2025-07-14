@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class App {
     Scanner sc;
-
+    List<Article> articleList = new ArrayList<>();
     App(Scanner sc) {
         this.sc = sc;
     }
@@ -13,7 +13,7 @@ public class App {
 
     public void run() {
 
-        List<Article> articleList = new ArrayList<>();
+
         int lastId = 0;
 
         System.out.println("==============   게시판 앱     =================");
@@ -63,16 +63,10 @@ public class App {
                 String[] paramsStr = commandList[1].split("=",2); //id=1 이란 문자열을 id 와 1로 2개로 나누었다
 
                 String value = paramsStr[1];
-
-
                 int idx = Integer.parseInt(paramsStr[1]);
-                Article article = null;
 
-                for (int i = 0; i < articleList.size(); i++){
-                    if (articleList.get(i).getId() == idx) {
-                        article = articleList.get(i);
-                    }
-                }
+                Article article = _getFindById(idx); //변수명앞에 _ 언더바가 있다는 것은 비교적 private 하다는 것을 의미한다
+
 
                 if( article == null){
                     System.out.printf("%d게시물은 존재하지 않습니다\n", idx);
@@ -88,18 +82,7 @@ public class App {
                 String value = paramsStr[1];
 
                 int idx = Integer.parseInt(paramsStr[1]);
-                Article article = null;
-//
-//                for (int i = 0; i < articleList.size(); i++){
-//                    if (articleList.get(i).getId() == idx) {
-//                        article = articleList.get(i);
-//                    }
-//                }
-                for( Article item : articleList) {
-                    if (item.getId() == idx){
-                        article = item;
-                    }
-                }
+                Article article = _getFindById(idx);
 
                 if( article == null){
                     System.out.printf("%d게시물은 존재하지 않습니다\n", idx);
@@ -114,5 +97,13 @@ public class App {
                 }
             }
         }
+    }
+    private Article _getFindById(int id) {
+        for ( Article item : articleList){
+            if (item.getId() == id) {
+                return item;
+            }
+        }
+        return null;
     }
 }
