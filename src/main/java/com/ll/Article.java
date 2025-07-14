@@ -16,7 +16,12 @@ public class Article {
         this.subject = subject;
         this.content = content;
     }
-
+    void setSubject(String subject) {
+        this.subject = subject;
+    }
+    void setContent(String content) {
+        this.content = content;
+    }
     int getId() {
         return this.id;
     }

@@ -16,11 +16,11 @@ public class App {
         List<Article> articleList = new ArrayList<>();
         int lastId = 0;
 
-        System.out.println("==============   게시판 앱   ===================");
-        System.out.println("==============  등록 : signin  ===================");
-        System.out.println("==============  등록 : list  ===================");
-        System.out.println("==============  삭제 : remove  ===================");
-        System.out.println("==============  종료 : exit  ===================");
+        System.out.println("==============   게시판 앱     =================");
+        System.out.println("==============  등록 : signin  =================");
+        System.out.println("==============  등록 : list    =================");
+        System.out.println("==============  삭제 : remove  =================");
+        System.out.println("==============  종료 : exit    =================");
 
         // 게시판앱 시작
         // while문으로 입력을 무한하게 받는다
@@ -71,18 +71,47 @@ public class App {
                 for (int i = 0; i < articleList.size(); i++){
                     if (articleList.get(i).getId() == idx) {
                         article = articleList.get(i);
-
                     }
                 }
+
                 if( article == null){
                     System.out.printf("%d게시물은 존재하지 않습니다\n", idx);
                 } else {
                     articleList.remove(article);
                     System.out.printf("%d게시물이 삭제되었습니다\n", idx);
                 }
+            } else if (command.startsWith("update")){
+                //split이란? 문장이 들어오면 쪼개는 기능, 인자는 2개 들어간다. 물음표를 기준으로 solit하겠다는 의미
+                String[] commandList = command.split("\\?", 2); //remove?id=1 이란 문자열을 remove 와 id=1로 2개로 나누었다
+                String[] paramsStr = commandList[1].split("=",2); //id=1 이란 문자열을 id 와 1로 2개로 나누었다
 
+                String value = paramsStr[1];
 
+                int idx = Integer.parseInt(paramsStr[1]);
+                Article article = null;
+//
+//                for (int i = 0; i < articleList.size(); i++){
+//                    if (articleList.get(i).getId() == idx) {
+//                        article = articleList.get(i);
+//                    }
+//                }
+                for( Article item : articleList) {
+                    if (item.getId() == idx){
+                        article = item;
+                    }
+                }
 
+                if( article == null){
+                    System.out.printf("%d게시물은 존재하지 않습니다\n", idx);
+                } else {
+                    System.out.printf("%d / %s / %s\n" , article.getId(),article.getSubject(),article.getContent());
+                    System.out.println("제목을 입력해주세요");
+                    article.setSubject(sc.nextLine().trim());
+                    System.out.println("내용을 입력해주세요");
+                    article.setContent(sc.nextLine().trim());
+                    System.out.printf("%d / %s / %s\n" , article.getId(),article.getSubject(),article.getContent());
+                    System.out.printf("%d게시물이 수정되었습니다\n", idx);
+                }
             }
         }
     }
