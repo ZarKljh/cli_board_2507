@@ -1,20 +1,18 @@
-import article.Article;
-import article.ArticleController;
-import system.SystemController;
+package com.ll;
+
+import com.ll.article.ArticleController;
+import com.ll.system.SystemController;
 
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class App {
-   Scanner sc;
+
    ArticleController articleController;
    SystemController systemController;
 
-    App(Scanner sc) {
-        this.sc = sc;
-        articleController = new ArticleController(sc);
+    App() {
+        articleController = new ArticleController();
         systemController = new SystemController();
     }
 
@@ -33,7 +31,7 @@ public class App {
 
             System.out.print("명령어: ");
             //trim()을 붙이면 명령어 앞뒤에 생기는 공백을 없애준다
-            String command = sc.nextLine().trim();
+            String command = Container.getSc().nextLine().trim();
             //exit 입력시 게시판앱 종료
             if(command.equals("exit")){
                 systemController.exit();

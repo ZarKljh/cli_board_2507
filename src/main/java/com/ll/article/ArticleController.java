@@ -1,24 +1,23 @@
-package article;
+package com.ll.article;
+
+import com.ll.Container;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class ArticleController {
-    Scanner sc;
+
     List<Article> articleList = new ArrayList<>();
     int lastId = 0;
 
-    public ArticleController(Scanner sc) {
-        this.sc = sc;
-    }
     public void write() {
             System.out.print("제목을 입력하세요 : ");
-            String inputSubject = sc.nextLine().trim();
+            String inputSubject = Container.getSc().nextLine().trim();
             System.out.println("제목: " + inputSubject);
 
             System.out.print("내용을 입력하세요 : ");
-            String inputContent = sc.nextLine().trim();
+            String inputContent = Container.getSc().nextLine().trim();
             System.out.println("내용: " + inputContent);
 
             //게시판번호++
@@ -69,9 +68,9 @@ public class ArticleController {
         } else {
             System.out.printf("%d / %s / %s\n" , article.getId(),article.getSubject(),article.getContent());
             System.out.println("제목을 입력해주세요");
-            article.setSubject(sc.nextLine().trim());
+            article.setSubject(Container.getSc().nextLine().trim());
             System.out.println("내용을 입력해주세요");
-            article.setContent(sc.nextLine().trim());
+            article.setContent(Container.getSc().nextLine().trim());
             System.out.printf("%d / %s / %s\n" , article.getId(),article.getSubject(),article.getContent());
             System.out.printf("%d게시물이 수정되었습니다\n", idx);
         }
