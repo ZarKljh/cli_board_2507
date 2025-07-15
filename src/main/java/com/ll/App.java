@@ -32,20 +32,21 @@ public class App {
             System.out.print("명령어: ");
             //trim()을 붙이면 명령어 앞뒤에 생기는 공백을 없애준다
             String command = Container.getSc().nextLine().trim();
-            //exit 입력시 게시판앱 종료
-            if(command.equals("exit")){
+
+            Request request = new Request(command);
+
+            if(request.getActionCode().equals("exit")){
                 systemController.exit();
                 break;
-            } else if(command.equals("write")) {
+            } else if(request.getActionCode().equals("write")) {
                 articleController.write();
-            } else if (command.equals("list")){
+            } else if (request.getActionCode().equals("list")){
                 articleController.list();
-            } else if (command.startsWith("remove?id=")){
-                articleController.remove(command);
-            } else if (command.startsWith("modify?id=")){
-                articleController.modify(command);
+            } else if (request.getActionCode().startsWith("remove")){
+                articleController.remove(request);
+            } else if (request.getActionCode().startsWith("modify")){
+                articleController.modify(request);
             }
         }
     }
-
 }

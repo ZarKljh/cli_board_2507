@@ -1,6 +1,7 @@
 package com.ll.article;
 
 import com.ll.Container;
+import com.ll.Request;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,36 +36,37 @@ public class ArticleController {
             System.out.printf("%d / %s / %s\n" , a.getId(),a.getSubject(),a.getContent());
         }
     }
-    public void remove(String command) {
-        //split이란? 문장이 들어오면 쪼개는 기능, 인자는 2개 들어간다. 물음표를 기준으로 solit하겠다는 의미
-        String[] commandList = command.split("\\?", 2); //remove?id=1 이란 문자열을 remove 와 id=1로 2개로 나누었다
-        String[] paramsStr = commandList[1].split("=",2); //id=1 이란 문자열을 id 와 1로 2개로 나누었다
+    public void remove(Request request) {
+        int id = _getIntParams(request.getParams("id"));
 
-        String value = paramsStr[1];
-        int idx = Integer.parseInt(paramsStr[1]);
+        if(id == -1){
+            System.out.println("잘못된 입력입니다");
+            return;
+        }
 
-        Article article = _getFindById(idx); //변수명앞에 _ 언더바가 있다는 것은 비교적 private 하다는 것을 의미한다
+        Article article = _getFindById(id); //변수명앞에 _ 언더바가 있다는 것은 비교적 private 하다는 것을 의미한다
 
         if( article == null){
-            System.out.printf("%d게시물은 존재하지 않습니다\n", idx);
+            System.out.printf("%d게시물은 존재하지 않습니다\n", id);
         } else {
             articleList.remove(article);
-            System.out.printf("%d게시물이 삭제되었습니다\n", idx);
+            System.out.printf("%d게시물이 삭제되었습니다\n", id);
         }
     }
-    public void modify(String command){
+    public void modify(Request request){
 
+        int id = _getIntParams(request.getParams("id"));
+
+        if(id == -1){
+            System.out.println("잘못된 입력입니다");
+            return;
+        }
         //split이란? 문장이 들어오면 쪼개는 기능, 인자는 2개 들어간다. 물음표를 기준으로 solit하겠다는 의미
-        String[] commandList = command.split("\\?", 2); //remove?id=1 이란 문자열을 remove 와 id=1로 2개로 나누었다
-        String[] paramsStr = commandList[1].split("=",2); //id=1 이란 문자열을 id 와 1로 2개로 나누었다
 
-        String value = paramsStr[1];
-
-        int idx = Integer.parseInt(paramsStr[1]);
-        Article article = _getFindById(idx);
+        Article article = _getFindById(id);
 
         if( article == null){
-            System.out.printf("%d게시물은 존재하지 않습니다\n", idx);
+            System.out.printf("%d게시물은 존재하지 않습니다\n", id);
         } else {
             System.out.printf("%d / %s / %s\n" , article.getId(),article.getSubject(),article.getContent());
             System.out.println("제목을 입력해주세요");
@@ -72,10 +74,13 @@ public class ArticleController {
             System.out.println("내용을 입력해주세요");
             article.setContent(Container.getSc().nextLine().trim());
             System.out.printf("%d / %s / %s\n" , article.getId(),article.getSubject(),article.getContent());
-            System.out.printf("%d게시물이 수정되었습니다\n", idx);
+            System.out.printf("%d게시물이 수정되었습니다\n", id);
         }
     }
     private Article _getFindById(int id) {
+
+        // articleLIst 를 받아서, Article 객체item 에 넣어서 반복한다
+        // if문 조건에 맞는 item을 return 한다
         for ( Article item : articleList){
             if (item.getId() == id) {
                 return item;
@@ -84,6 +89,15 @@ public class ArticleController {
         return null;
     }
 
+    private int _getIntParams(String id){
+        int defaultValue = -1;
+
+        try {
+            return Integer.parseInt(id);
+        } catch(NumberFormatException e) {
+            return defaultValue;
+        }
+    }
 
 
 }
