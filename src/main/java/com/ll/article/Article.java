@@ -24,12 +24,7 @@ public class Article {
         this.content = (String)row.get("content");;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-    public void setContent(String content) {
-        this.content = content;
-    }
+
     public int getId() {
         return this.id;
     }
