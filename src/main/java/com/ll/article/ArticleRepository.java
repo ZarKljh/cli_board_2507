@@ -1,7 +1,10 @@
 package com.ll.article;
 
+import com.ll.Container;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ArticleRepository {
     List<Article> articleList = new ArrayList<>();
@@ -15,6 +18,15 @@ public class ArticleRepository {
         return article.getId();
     }
     public List<Article> findAll(){
+        List<Article> articleList = new ArrayList<>();
+
+        List<Map<String,Object>> rows = Container.getDBConnection().selectRows("select * from article");
+
+        for(Map<String, Object> row: rows){
+            Article article = new Article(row);
+            articleList.add(article);
+        }
+
         return articleList;
     }
     public Article getFindById(int id){
