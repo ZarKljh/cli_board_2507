@@ -47,13 +47,13 @@ public class ArticleController {
             return;
         }
 
-        Article article = articleService.getFindById(id);
+        Article article = articleService.findById(id);
 
         if( article == null){
-            System.out.printf("%d게시물은 존재하지 않습니다\n", id);
+            System.out.printf("%d번 게시물은 존재하지 않습니다\n", id);
         } else {
             articleService.remove(article);
-            System.out.printf("%d게시물이 삭제되었습니다\n", id);
+            System.out.printf("%d번 게시물이 삭제되었습니다\n", id);
         }
     }
     public void modify(Request request){
@@ -66,7 +66,7 @@ public class ArticleController {
         }
         //split이란? 문장이 들어오면 쪼개는 기능, 인자는 2개 들어간다. 물음표를 기준으로 solit하겠다는 의미
 
-        Article article = articleService.getFindById(id);
+        Article article = articleService.findById(id);
 
         if( article == null){
             System.out.printf("%d게시물은 존재하지 않습니다\n", id);
@@ -79,7 +79,7 @@ public class ArticleController {
             String modifyContent = Container.getSc().nextLine().trim();
 
             articleService.modify(article,modifySubject,modifyContent);
-
+            article = articleService.findById(id);
             System.out.printf("%d / %s / %s\n" , article.getId(),article.getSubject(),article.getContent());
             System.out.printf("%d게시물이 수정되었습니다\n", id);
 

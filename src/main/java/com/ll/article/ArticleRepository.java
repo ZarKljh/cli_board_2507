@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ArticleRepository {
-    List<Article> articleList = new ArrayList<>();
+//    List<Article> articleList = new ArrayList<>();
     int lastId = 1;
 
     public int create(String subject, String content){
@@ -28,21 +28,27 @@ public class ArticleRepository {
 
         return articleList;
     }
-    public Article getFindById(int id){
+    public Article findById(int id){
         // articleLIst 를 받아서, Article 객체item 에 넣어서 반복한다
         // if문 조건에 맞는 item을 return 한다
+        List<Article> articleList = this.findAll();
+
         for ( Article item : articleList){
             if (item.getId() == id) {
                 return item;
             }
         }
         return null;
+
+
     }
     public void remove(Article article){
-        articleList.remove(article);
+        String sql = String.format("DELETE from article where id=%d",article.getId());
+        Container.getDBConnection().delete(sql);
     }
     public void modify(Article article, String subject, String content){
-        article.setSubject(subject);
-        article.setContent(content);
+
+        String sql = String.format("update article set subject='%s', content='%s' where id=%d",subject, content, article.getId());
+        Container.getDBConnection().update(sql);
     }
 }

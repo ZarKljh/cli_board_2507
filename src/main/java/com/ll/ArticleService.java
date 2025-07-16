@@ -22,8 +22,8 @@ public class ArticleService {
         return articleRepository.findAll();
     }
 
-    public Article getFindById(int id) {
-       return articleRepository.getFindById(id);
+    public Article findById(int id) {
+       return articleRepository.findById(id);
     }
     public void remove(Article article){
         articleRepository.remove(article);
