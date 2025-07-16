@@ -5,9 +5,8 @@ import java.util.Map;
 
 public class Request {
 
-    private String actionCode;
-
-    private Map<String, String> params = new HashMap<>();
+    private final String actionCode;
+    private final Map<String, String> params = new HashMap<>();
 
     public Request(String command){
         String[] commandList = command.split("\\?", 2); //remove?id=1 이란 문자열을 remove 와 id=1로 2개로 나누었다

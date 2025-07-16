@@ -10,8 +10,6 @@ import java.util.List;
 
 public class ArticleController {
 
-    List<Article> articleList = new ArrayList<>();
-    int lastId = 0;
 
     ArticleService articleService;
 
@@ -31,6 +29,7 @@ public class ArticleController {
             int id = articleService.create(inputSubject, inputContent);
             System.out.println(id + "번 게시물이 등록되었습니다");
     }
+
     public void list() {
         List<Article> articleList = articleService.findAll();
         System.out.println(" 번호 / 제목 / 내용");

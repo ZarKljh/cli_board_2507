@@ -1,9 +1,12 @@
 package com.ll;
 
 import com.ll.article.ArticleController;
+import com.ll.db.DBConnection;
 import com.ll.system.SystemController;
 
 
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class App {
@@ -12,6 +15,18 @@ public class App {
    SystemController systemController;
 
     App() {
+        DBConnection.DB_NAME = "proj1";
+        DBConnection.DB_PORT = 3306;
+        DBConnection.DB_USER = "root";
+        DBConnection.DB_PASSWORD = "";
+
+        DBConnection DBConnection = new DBConnection();
+        DBConnection.connect();
+
+        List<Map<String, Object>> rs = DBConnection.selectRows("select * from article");
+
+        systemController = new SystemController();
+
         articleController = new ArticleController();
         systemController = new SystemController();
     }
