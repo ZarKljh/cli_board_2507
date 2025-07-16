@@ -86,7 +86,6 @@ public class ArticleController {
         }
     }
 
-
     private int _getIntParams(String id){
         int defaultValue = -1;
 
