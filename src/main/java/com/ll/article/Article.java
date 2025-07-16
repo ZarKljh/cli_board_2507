@@ -11,18 +11,18 @@ public class Article {
         this.subject = "";
         this.content = "";
     }
-    Article( int id, String subject, String content){
+    public Article( int id, String subject, String content){
         this.id = id;
         this.subject = subject;
         this.content = content;
     }
-    void setSubject(String subject) {
+    public void setSubject(String subject) {
         this.subject = subject;
     }
-    void setContent(String content) {
+    public void setContent(String content) {
         this.content = content;
     }
-    int getId() {
+    public int getId() {
         return this.id;
     }
     String getSubject() {
